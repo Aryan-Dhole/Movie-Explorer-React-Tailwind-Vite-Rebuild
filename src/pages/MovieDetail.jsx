@@ -5,6 +5,7 @@ export default function MovieDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [movie, setMovie] = useState(null);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -13,13 +14,14 @@ export default function MovieDetail() {
             );
             const data = await res.json();
             setMovie(data);
-            console.log(data);
+            setLoading(false)
 
         };
         fetchMovie();
     }, [id]);
-
-    if (!movie) return <p className="p-6 min-h-screen bg-gray-900 flex justify-center text-white text-xl items-center">Loading...</p>;
+    if (loading) {
+        return <p className="p-6 flex items-center justify-center text-2xl min-h-screen bg-gray-900 text-white animate-pulse">Loading movie details...</p>;
+    }
 
     return (
         <div className="min-h-screen bg-gray-900 text-white p-6">

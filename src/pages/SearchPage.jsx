@@ -5,6 +5,7 @@ import { useEffect } from "react";
 export default function SearchPage() {
     const [query, setQuery] = useState("");
     const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const saved = localStorage.getItem("lastSearch");
@@ -17,12 +18,15 @@ export default function SearchPage() {
 
     const fetchMovies = async () => {
         if (!query.trim()) return;
+
+        setLoading(true)
         const res = await fetch(
             `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_KEY}&s=${query}`
         );
         const data = await res.json();
         const results = data.Search || [];
         setMovies(results)
+        setLoading(false)
 
         localStorage.setItem("lastSearch", JSON.stringify({ query, movies: results }));
     };
@@ -49,31 +53,38 @@ export default function SearchPage() {
             </div>
             <p className="text-sm text-gray-500 text-center mb-4">Your movies will appear below!</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-                {movies.length > 0 ? (
-                    movies.map((movie) => (
-                        <Link
-                            key={movie.imdbID}
-                            to={`/movie/${movie.imdbID}`}
-                            className="bg-gray-800 rounded-xl p-3 shadow hover:scale-105 transition block"
-                        >
-                            <img
-                                src={
-                                    movie.Poster !== "N/A"
-                                        ? movie.Poster
-                                        : "https://via.placeholder.com/300x450?text=No+Image"
-                                }
-                                alt={movie.Title}
-                                className="rounded-md mb-2"
-                            />
-                            <h2 className="text-lg font-semibold">{movie.Title}</h2>
-                            <p className="text-sm text-gray-400">{movie.Year}</p>
-                        </Link>
-                    ))
-                ) : (
-                    <p className="col-span-full text-center text-gray-400">
-                        No movies found. Try searching something.
+                {loading ? (
+                    <p className="col-span-full text-center text-gray-400 animate-pulse">
+                        Loading movies...
                     </p>
-                )}
+                ) :
+                    (
+                        movies.length > 0 ? (
+                            movies.map((movie) => (
+                                <Link
+                                    key={movie.imdbID}
+                                    to={`/movie/${movie.imdbID}`}
+                                    className="bg-gray-800 rounded-xl p-3 shadow hover:scale-105 transition block"
+                                >
+                                    <img
+                                        src={
+                                            movie.Poster !== "N/A"
+                                                ? movie.Poster
+                                                : "https://via.placeholder.com/300x450?text=No+Image"
+                                        }
+                                        alt={movie.Title}
+                                        className="rounded-md mb-2"
+                                    />
+                                    <h2 className="text-lg font-semibold">{movie.Title}</h2>
+                                    <p className="text-sm text-gray-400">{movie.Year}</p>
+                                </Link>
+                            ))
+                        ) : (
+                            <p className="col-span-full text-center text-gray-400">
+                                No movies found. Try searching something.
+                            </p>
+                        )
+                    )}
             </div>
         </div>
     );
