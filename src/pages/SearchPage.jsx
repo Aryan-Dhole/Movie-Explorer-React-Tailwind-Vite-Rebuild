@@ -54,37 +54,43 @@ export default function SearchPage() {
             <p className="text-sm text-gray-500 text-center mb-4">Your movies will appear below!</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                 {loading ? (
-                    <p className="col-span-full text-center text-gray-400 animate-pulse">
-                        Loading movies...
-                    </p>
-                ) :
-                    (
-                        movies.length > 0 ? (
-                            movies.map((movie) => (
-                                <Link
-                                    key={movie.imdbID}
-                                    to={`/movie/${movie.imdbID}`}
-                                    className="bg-gray-800 rounded-xl p-3 shadow hover:scale-105 transition block"
-                                >
-                                    <img
-                                        src={
-                                            movie.Poster !== "N/A"
-                                                ? movie.Poster
-                                                : "https://via.placeholder.com/300x450?text=No+Image"
-                                        }
-                                        alt={movie.Title}
-                                        className="rounded-md mb-2"
-                                    />
-                                    <h2 className="text-lg font-semibold">{movie.Title}</h2>
-                                    <p className="text-sm text-gray-400">{movie.Year}</p>
-                                </Link>
-                            ))
-                        ) : (
-                            <p className="col-span-full text-center text-gray-400">
-                                No movies found. Try searching something.
-                            </p>
-                        )
-                    )}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 col-span-full">
+                        {Array.from({ length: 8 }).map((_, i) => (
+                            <div key={i} className="bg-gray-800 rounded-xl p-3 animate-pulse">
+                                <div className="h-40 bg-gray-700 rounded mb-3"></div>
+                                <div className="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
+                                <div className="h-3 bg-gray-700 rounded w-1/2"></div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    movies.length > 0 ? (
+                        movies.map((movie) => (
+                            <Link
+                                key={movie.imdbID}
+                                to={`/movie/${movie.imdbID}`}
+                                className="bg-gray-800 rounded-xl p-3 shadow hover:scale-105 transition block"
+                            >
+                                <img
+                                    src={
+                                        movie.Poster !== "N/A"
+                                            ? movie.Poster
+                                            : "https://via.placeholder.com/300x450?text=No+Image"
+                                    }
+                                    alt={movie.Title}
+                                    className="rounded-md mb-2"
+                                />
+                                <h2 className="text-lg font-semibold">{movie.Title}</h2>
+                                <p className="text-sm text-gray-400">{movie.Year}</p>
+                            </Link>
+                        ))
+                    ) : (
+                        <p className="col-span-full text-center text-gray-400">
+                            No movies found. Try searching something.
+                        </p>
+                    )
+                )}
+
             </div>
         </div>
     );

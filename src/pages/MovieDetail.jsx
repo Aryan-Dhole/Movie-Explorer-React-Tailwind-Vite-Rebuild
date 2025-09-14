@@ -31,7 +31,7 @@ export default function MovieDetail() {
     return (
         <div className="min-h-screen bg-gray-900 text-white p-6">
             <button
-                onClick={() => navigate("/")}
+                onClick={() => navigate(-1)}
                 className="mb-4 px-4 py-2 bg-gray-700 rounded hover:bg-gray-600"
             >
                 ← Back
@@ -86,6 +86,14 @@ export default function MovieDetail() {
                     </div>
                 </div>
             )}
+            <div className="flex justify-center">
+                <button
+                    onClick={() => navigate("/")}
+                    className="px-16 py-2 bg-gray-700 text-center mt-12 justify-center rounded-2xl hover:bg-gray-600"
+                >
+                    ←   back to Search
+                </button>
+            </div>
         </div>
     );
 
