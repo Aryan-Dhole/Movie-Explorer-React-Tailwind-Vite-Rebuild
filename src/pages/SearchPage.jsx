@@ -32,10 +32,10 @@ export default function SearchPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white p-12">
+        <div className="min-h-screen bg-gray-900 text-white p-8">
             <h1 className="text-3xl font-bold mb-12 text-center">🎬 Movie Explorer</h1>
 
-            <div className="flex justify-center mb-18">
+            <div className="flex justify-center mb-15">
                 <input
                     type="text"
                     placeholder="Enter movie name..."
@@ -55,9 +55,9 @@ export default function SearchPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                 {loading ? (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 col-span-full">
-                        {Array.from({ length: 8 }).map((_, i) => (
+                        {Array.from({ length: 9 }).map((_, i) => (
                             <div key={i} className="bg-gray-800 rounded-xl p-3 animate-pulse">
-                                <div className="h-40 bg-gray-700 rounded mb-3"></div>
+                                <div className="h-92 bg-gray-700 rounded mb-3"></div>
                                 <div className="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
                                 <div className="h-3 bg-gray-700 rounded w-1/2"></div>
                             </div>
