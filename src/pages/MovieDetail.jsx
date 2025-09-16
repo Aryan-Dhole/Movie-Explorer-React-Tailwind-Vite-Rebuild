@@ -19,13 +19,6 @@ export default function MovieDetail() {
         };
         fetchMovie();
     }, [id]);
-    if (loading) {
-        return (
-            <div className="p-6 flex justify-center items-center bg-gray-900 min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
-            </div>
-        );
-    }
 
 
     return (
@@ -38,9 +31,17 @@ export default function MovieDetail() {
             </button>
 
             {loading ? (
-                <div className="flex justify-center items-center min-h-[60vh] w-full">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+                <div className="flex flex-col md:flex-row gap-6 animate-pulse">
+                    <div className="bg-gray-700 h-[450px] w-[300px] rounded"></div>
+                    <div className="flex-1 space-y-4">
+                        <div className="h-8 bg-gray-700 rounded w-3/4"></div>
+                        <div className="h-4 bg-gray-700 rounded w-1/2"></div>
+                        <div className="h-20 bg-gray-700 rounded"></div>
+                        <div className="h-4 bg-gray-700 rounded w-1/3"></div>
+                        <div className="h-4 bg-gray-700 rounded w-1/5"></div>
+                    </div>
                 </div>
+
             ) : (
                 <div className="flex flex-col md:flex-row gap-6">
                     <img
